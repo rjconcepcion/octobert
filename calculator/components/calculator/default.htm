@@ -6,7 +6,6 @@
 	</script>
 {% endput %}
 
-
 <form data-request="{{ __SELF__ }}::onCompute" 	data-request-success='modval( data.total )' >
 
 	<div class="form-group">
@@ -14,6 +13,18 @@
 		<label for="num1">Num1</label>
 
 		<input type="number" name="num1" class="form-control" id="num1" placeholder="Number">
+
+	</div>
+
+	<div class="form-group">
+
+		<label for="operation">Mathematica operation</label>
+
+		<select name="math-op" id="operation" class="form-control">		
+			{% for key,operator in calc.math_operators.operators %}
+			     <option value="{{ key }}" {{ key == calc.property('operation') ? 'selected' : '' }} >{{ operator }}</option>
+			{% endfor %}
+		</select>		
 
 	</div>
 
@@ -35,8 +46,6 @@
 
 	</div>
 
-	<button type="submit" class="btn btn-success">Compute</button>
+	<button type="submit" class="btn btn-success" data-attach-loading>Compute</button>
 
 </form>
-
-<div id="myDiv"></div>

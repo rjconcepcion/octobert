@@ -4,6 +4,7 @@ namespace Octobert\Calculator\Components;
 
 class Calculator extends \Cms\Classes\ComponentBase
 {
+
     public function componentDetails()
     {
         return [
@@ -29,15 +30,40 @@ class Calculator extends \Cms\Classes\ComponentBase
 	        ]
 	    ];
 	}
-	/**
-	 * computation
-	 */
-	public function onCompute()
-	{
-		//$data = request()->input();
-		$total = input('num1') + input('num2');
-		return ["total" => $total];
+
+	public function math_operators()
+	{		
+		$operation = $this->defineProperties()['operation']['options'];
+		return [
+			"operators" => $operation,
+			"default_operator" => $this->property('operation'),
+		];
 	}
 
+	public function onCompute()
+	{
+		
+		$operation = input('math-op');
+
+		if( $operation == 'add' ){
+			
+			$total = input('num1') + input('num2');
+		
+		}elseif( $operation == 'minus' ){
+
+			$total = input('num1') - input('num2');
+
+		}elseif( $operation == 'mult' ){
+
+			$total = input('num1') * input('num2');
+
+		}elseif( $operation == 'div' ){
+
+			$total = input('num1') / input('num2');
+
+		}
+		
+		return ["total" => $total];
+	}
 
 }
